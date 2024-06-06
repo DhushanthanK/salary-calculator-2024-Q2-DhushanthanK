@@ -1,21 +1,20 @@
 import React from "react";
 
-interface SalaryCalculatorProps {
+interface DisplayProps {
   salary: string;
-  totalSalaryAmount: number;
   totalEarnings: number;
   totalEarningsForEPF: number;
   totalDeductions: number;
 }
 
-const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
+const Display: React.FC<DisplayProps> = ({
   salary,
   totalEarnings,
   totalEarningsForEPF,
   totalDeductions,
 }) => {
   return (
-    <div className="salary-calculator">
+    <div className="display">
       <h1>Salary Details</h1>
       <p>Basic Salary: {salary}</p>
       <p>Total Earnings: {totalEarnings}</p>
@@ -25,4 +24,4 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   );
 };
 
-export default SalaryCalculator;
+export default Display;

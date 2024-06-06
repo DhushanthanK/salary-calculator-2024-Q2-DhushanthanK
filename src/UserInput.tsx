@@ -1,23 +1,57 @@
-import { useState } from "react";
+import React from "react";
 import { usePopupContext } from "./PopupContext";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
 
-function UserInput() {
+interface UserInputProps {
+  salary: string;
+  setSalary: (salary: string) => void;
+  totalEarnings: number;
+  setTotalEarnings: (totalEarnings: number) => void;
+  totalEarningsForEPF: number;
+  setTotalEarningsForEPF: (totalEarningsForEPF: number) => void;
+  totalDeductions: number;
+  setTotalDeductions: (totalDeductions: number) => void;
+}
+
+const UserInput: React.FC<UserInputProps> = ({
+  salary,
+  setSalary,
+  totalEarnings,
+  setTotalEarnings,
+  totalEarningsForEPF,
+  setTotalEarningsForEPF,
+  totalDeductions,
+  setTotalDeductions,
+}) => {
   const { setShowEarningsPopup, setShowDeductionsPopup } = usePopupContext();
 
-  const [salary, setSalary] = useState("");
-  const [earnings, setEarnings] = useState<string[]>([]);
-  const [deductions, setDeductions] = useState<string[]>([]);
+  const [earnings, setEarnings] = React.useState<string[]>([]);
+  const [deductions, setDeductions] = React.useState<string[]>([]);
 
-  const handleAddEarnings = (name: string, amount: string, isChecked: boolean) => {
-    const earningsEntry = isChecked ? `${name}: ${amount} EPF/ETF` : `${name}: ${amount}`;
+  const handleAddEarnings = (
+    name: string,
+    amount: string,
+    isChecked: boolean
+  ) => {
+    const earningsAmount = parseInt(amount);
+    const earningsEntry = isChecked
+      ? `${name}: ${amount} EPF/ETF`
+      : `${name}: ${amount}`;
     setEarnings([...earnings, earningsEntry]);
+    setTotalEarnings(totalEarnings + earningsAmount);
+
+    if (isChecked) {
+      setTotalEarningsForEPF(totalEarningsForEPF + earningsAmount);
+    }
+
     setShowEarningsPopup(false);
   };
 
   const handleAddDeductions = (name: string, amount: string) => {
+    const deductionAmount = parseInt(amount);
     setDeductions([...deductions, `${name}: ${amount}`]);
+    setTotalDeductions(totalDeductions + deductionAmount);
     setShowDeductionsPopup(false);
   };
 
@@ -28,7 +62,11 @@ function UserInput() {
       <h2>Basic Salary</h2>
       <div className="input-box">
         <form>
-          <input type="text" value={salary} onChange={(e) => setSalary(e.target.value)} />
+          <input
+            type="text"
+            value={salary}
+            onChange={(e) => setSalary(e.target.value)}
+          />
         </form>
       </div>
 
@@ -41,7 +79,8 @@ function UserInput() {
           </div>
         ))}
         <button className="Add" onClick={() => setShowEarningsPopup(true)}>
-          <span className="materials-symbols-outlined add-icon"> + </span>Add New Allowance
+          <span className="materials-symbols-outlined add-icon"> + </span>Add
+          New Allowance
         </button>
       </div>
 
@@ -54,7 +93,8 @@ function UserInput() {
           </div>
         ))}
         <button className="Add" onClick={() => setShowDeductionsPopup(true)}>
-          <span className="materials-symbols-outlined add-icon"> + </span>Add New Deduction
+          <span className="materials-symbols-outlined add-icon"> + </span>Add
+          New Deduction
         </button>
       </div>
 
@@ -62,6 +102,6 @@ function UserInput() {
       <PopupDeductions onAdd={handleAddDeductions} />
     </div>
   );
-}
+};
 
 export default UserInput;
