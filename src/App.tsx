@@ -1,12 +1,11 @@
-import SalaryCalculator from "./SalaryCalculator";
+import UserInput from "./UserInput";
 import { PopupProvider } from "./PopupContext";
 
 function App() {
   return (
     <PopupProvider>
       <div className="App">
-        <h1>My App</h1>
-        <SalaryCalculator />
+        <UserInput />
       </div>
     </PopupProvider>
   );

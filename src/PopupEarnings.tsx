@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePopupContext } from "./PopupContext";
 
-function PopupEarnings({ onAdd }: { onAdd: (name: string, amount: string) => void }) {
+function PopupEarnings({ onAdd }: { onAdd: (name: string, amount: string, isChecked: boolean) => void }) {
   const { showEarningsPopup, setShowEarningsPopup } = usePopupContext();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
@@ -9,7 +9,7 @@ function PopupEarnings({ onAdd }: { onAdd: (name: string, amount: string) => voi
 
   const handleAdd = () => {
     if (name && amount) {
-      onAdd(name, amount);
+      onAdd(name, amount, isChecked);
       setName("");
       setAmount("");
       setIsChecked(false);
@@ -29,9 +29,9 @@ function PopupEarnings({ onAdd }: { onAdd: (name: string, amount: string) => voi
       <div className="popup-inner">
         <h3>Add New Earnings</h3>
         <label>Earnings Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Eg: Travel"/>
         <label>Amount:</label>
-        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Eg: 10000"/>
         <label>
           <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
           EPF/ETF
