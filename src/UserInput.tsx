@@ -4,8 +4,8 @@ import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
 
 interface UserInputProps {
-  salary: string;
-  setSalary: (salary: string) => void;
+  salary: number;
+  setSalary: (salary: number) => void;
   totalEarnings: number;
   setTotalEarnings: (totalEarnings: number) => void;
   totalEarningsForEPF: number;
@@ -26,80 +26,40 @@ const UserInput: React.FC<UserInputProps> = ({
 }) => {
   const { setShowEarningsPopup, setShowDeductionsPopup } = usePopupContext();
 
-  const [earnings, setEarnings] = React.useState<string[]>([]);
-  const [deductions, setDeductions] = React.useState<string[]>([]);
-
-  const handleAddEarnings = (
-    name: string,
-    amount: string,
-    isChecked: boolean
-  ) => {
-    const earningsAmount = parseInt(amount);
-    const earningsEntry = isChecked
-      ? `${name}: ${amount} EPF/ETF`
-      : `${name}: ${amount}`;
-    setEarnings([...earnings, earningsEntry]);
-    setTotalEarnings(totalEarnings + earningsAmount);
-
-    if (isChecked) {
-      setTotalEarningsForEPF(totalEarningsForEPF + earningsAmount);
-    }
-
-    setShowEarningsPopup(false);
-  };
-
-  const handleAddDeductions = (name: string, amount: string) => {
-    const deductionAmount = parseInt(amount);
-    setDeductions([...deductions, `${name}: ${amount}`]);
-    setTotalDeductions(totalDeductions + deductionAmount);
-    setShowDeductionsPopup(false);
-  };
-
   return (
     <div className="calculator">
       <h1>Calculate your salary</h1>
 
-      <h2>Basic Salary</h2>
       <div className="input-box">
-        <form>
-          <input
-            type="text"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-          />
-        </form>
+        <h2>Basic Salary</h2>
+        <input
+          type="number"
+          value={salary}
+          onChange={(e) => setSalary(parseFloat(e.target.value))}
+          placeholder="Enter your basic salary"
+        />
       </div>
 
       <div className="container">
         <h2>Earnings</h2>
         <p>Allowances, fixed allowances, bonuses, etc.</p>
-        {earnings.map((earning, index) => (
-          <div className="input-container" key={index}>
-            <input type="text" value={earning} readOnly />
-          </div>
-        ))}
-        <button className="Add" onClick={() => setShowEarningsPopup(true)}>
-          <span className="materials-symbols-outlined add-icon"> + </span>Add
-          New Allowance
-        </button>
+        <button onClick={() => setShowEarningsPopup(true)}>Add New Allowance</button>
       </div>
 
       <div className="container">
         <h2>Deductions</h2>
-        <p>Salary Advances, Loan Deductions and all.</p>
-        {deductions.map((deduction, index) => (
-          <div className="input-container" key={index}>
-            <input type="text" value={deduction} readOnly />
-          </div>
-        ))}
-        <button className="Add" onClick={() => setShowDeductionsPopup(true)}>
-          <span className="materials-symbols-outlined add-icon"> + </span>Add
-          New Deduction
-        </button>
+        <p>Salary Advances, Loan Deductions, etc.</p>
+        <button onClick={() => setShowDeductionsPopup(true)}>Add New Deduction</button>
       </div>
 
-      <PopupEarnings onAdd={handleAddEarnings} />
-      <PopupDeductions onAdd={handleAddDeductions} />
+      <PopupEarnings
+        totalEarnings={totalEarnings}
+        setTotalEarnings={setTotalEarnings}
+      />
+      <PopupDeductions
+        totalDeductions={totalDeductions}
+        setTotalDeductions={setTotalDeductions}
+      />
     </div>
   );
 };

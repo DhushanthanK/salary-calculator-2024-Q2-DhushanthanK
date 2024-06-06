@@ -1,46 +1,45 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { usePopupContext } from "./PopupContext";
 
-function PopupEarnings({ onAdd }: { onAdd: (name: string, amount: string, isChecked: boolean) => void }) {
-  const { showEarningsPopup, setShowEarningsPopup } = usePopupContext();
-  const [name, setName] = useState("");
-  const [amount, setAmount] = useState("");
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleAdd = () => {
-    if (name && amount) {
-      onAdd(name, amount, isChecked);
-      setName("");
-      setAmount("");
-      setIsChecked(false);
-    }
-    setShowEarningsPopup(false);
-  };
-
-  const handleClose = () => {
-    setName("");
-    setAmount("");
-    setIsChecked(false);
-    setShowEarningsPopup(false);
-  };
-
-  return showEarningsPopup ? (
-    <div className="popup">
-      <div className="popup-inner">
-        <h3>Add New Earnings</h3>
-        <label>Earnings Name:</label>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Eg: Travel"/>
-        <label>Amount:</label>
-        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Eg: 10000"/>
-        <label>
-          <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
-          EPF/ETF
-        </label>
-        <button className="AddButton" onClick={handleAdd}>Add</button>
-        <button className="CloseButton" onClick={handleClose}>Close</button>
-      </div>
-    </div>
-  ) : null;
+interface PopupEarningsProps {
+  totalEarnings: number;
+  setTotalEarnings: (totalEarnings: number) => void;
 }
+
+const PopupEarnings: React.FC<PopupEarningsProps> = ({
+  totalEarnings,
+  setTotalEarnings,
+}) => {
+  const { showEarningsPopup, setShowEarningsPopup } = usePopupContext();
+  const [newEarningName, setNewEarningName] = useState("");
+  const [newEarningAmount, setNewEarningAmount] = useState("");
+
+  const handleAddEarning = () => {
+    setTotalEarnings(totalEarnings + parseFloat(newEarningAmount));
+    setShowEarningsPopup(false);
+  };
+
+  if (!showEarningsPopup) return null;
+
+  return (
+    <div className="popup">
+      <h2>Add New Earning</h2>
+      <input
+        type="text"
+        value={newEarningName}
+        onChange={(e) => setNewEarningName(e.target.value)}
+        placeholder="Enter name"
+      />
+      <input
+        type="text"
+        value={newEarningAmount}
+        onChange={(e) => setNewEarningAmount(e.target.value)}
+        placeholder="Enter amount"
+      />
+      <button onClick={handleAddEarning}>Add</button>
+      <button onClick={() => setShowEarningsPopup(false)}>Cancel</button>
+    </div>
+  );
+};
 
 export default PopupEarnings;

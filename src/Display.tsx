@@ -1,25 +1,37 @@
 import React from "react";
 
 interface DisplayProps {
-  salary: string;
-  totalEarnings: number;
-  totalEarningsForEPF: number;
-  totalDeductions: number;
+  salary: number;
+  grossEarnings: number;
+  grossDeductions: number;
+  netSalary: number;
+  employeeEPF: number;
+  employerEPF: number;
+  employerETF: number;
+  onReset: () => void;
 }
 
 const Display: React.FC<DisplayProps> = ({
   salary,
-  totalEarnings,
-  totalEarningsForEPF,
-  totalDeductions,
+  grossEarnings,
+  grossDeductions,
+  netSalary,
+  employeeEPF,
+  employerEPF,
+  employerETF,
+  onReset,
 }) => {
   return (
     <div className="display">
       <h1>Salary Details</h1>
-      <p>Basic Salary: {salary}</p>
-      <p>Total Earnings: {totalEarnings}</p>
-      <p>Total Earnings for EPF/ETF: {totalEarningsForEPF}</p>
-      <p>Total Deductions: {totalDeductions}</p>
+      <p>Basic Salary: {salary.toFixed(2)}</p>
+      <p>Gross Earnings: {grossEarnings.toFixed(2)}</p>
+      <p>Gross Deductions: {grossDeductions.toFixed(2)}</p>
+      <p>Net Salary: {netSalary.toFixed(2)}</p>
+      <p>Employee EPF: {employeeEPF.toFixed(2)}</p>
+      <p>Employer EPF: {employerEPF.toFixed(2)}</p>
+      <p>Employer ETF: {employerETF.toFixed(2)}</p>
+      <button onClick={onReset}>Reset</button>
     </div>
   );
 };

@@ -1,29 +1,39 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
-type PopupContextType = {
+interface PopupContextProps {
   showEarningsPopup: boolean;
+  setShowEarningsPopup: (show: boolean) => void;
   showDeductionsPopup: boolean;
-  setShowEarningsPopup: (value: boolean) => void;
-  setShowDeductionsPopup: (value: boolean) => void;
-};
+  setShowDeductionsPopup: (show: boolean) => void;
+}
 
-const PopupContext = createContext<PopupContextType | undefined>(undefined);
+interface PopupProviderProps {
+  children: ReactNode;
+}
 
-export const usePopupContext = () => {
-  const context = useContext(PopupContext);
-  if (!context) {
-    throw new Error("usePopupContext must be used within a PopupProvider");
-  }
-  return context;
-};
+const PopupContext = createContext<PopupContextProps>({
+  showEarningsPopup: false,
+  setShowEarningsPopup: () => {},
+  showDeductionsPopup: false,
+  setShowDeductionsPopup: () => {},
+});
 
-export const PopupProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const PopupProvider: React.FC<PopupProviderProps> = ({ children }) => {
   const [showEarningsPopup, setShowEarningsPopup] = useState(false);
   const [showDeductionsPopup, setShowDeductionsPopup] = useState(false);
 
   return (
-    <PopupContext.Provider value={{ showEarningsPopup, showDeductionsPopup, setShowEarningsPopup, setShowDeductionsPopup }}>
+    <PopupContext.Provider
+      value={{
+        showEarningsPopup,
+        setShowEarningsPopup,
+        showDeductionsPopup,
+        setShowDeductionsPopup,
+      }}
+    >
       {children}
     </PopupContext.Provider>
   );
 };
+
+export const usePopupContext = () => useContext(PopupContext);
