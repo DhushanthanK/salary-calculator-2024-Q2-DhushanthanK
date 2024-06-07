@@ -6,21 +6,64 @@
   border: 1px solid #e0e0e0;
   background: #fafafa;
   top: 142px;
-  left: 20px; 
+  left: 180px; 
+}
+
+
+.salary-text-button {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
 }
 
 .CalculateYourSalaryText {
+  margin: 4; 
+  padding-right: 10px; 
   font-family: Inter;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   color: #000000;
-  margin: 20px 0;
+  padding-left: 15px;
+}
+
+.reset-button {
+  display: flex;
+  align-items: center; 
+  padding: 5px 10px; 
+  font-size: 16px;
+  cursor: pointer; 
+  border: none; 
+  background-color: transparent;
+  color: #007bff;
+}
+
+.BasicSalaryText{
+  font-size: 20px;
+
+}
+
+.SalaryContainer {
+  padding-left: 15px;
+
+
+}
+.EarningsContainer {
+  padding-left: 15px;
+
+
+}
+
+.DeductionContainer{
+  padding-left: 15px;
+
+
 }
 
 .container {
   width: 100%;
   padding: 20px;
   box-sizing: border-box;
+  
 }
 
 .text {
@@ -29,6 +72,7 @@
   font-weight: 600;
   color: #000000;
   margin-bottom: 8px;
+  padding: 2px;
 }
 
 .input-box {
@@ -50,6 +94,11 @@
   font-size: 16px;
   font-weight: 600;
   color: #007bff;
+}
+
+.AddNewAllowanceButton{
+  color: #007bff;
+
 }
 
 ul {

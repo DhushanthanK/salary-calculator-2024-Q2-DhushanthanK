@@ -1,5 +1,5 @@
 import React from "react";
-import "./Display.css";
+import "../styles/Display.css";
 
 interface DisplayProps {
   salary: number;
@@ -27,7 +27,7 @@ const Display: React.FC<DisplayProps> = ({
   isGrayed,
 }) => {
   return (
-    <div className={`display ${isGrayed ? 'grayed' : ''}`}>
+    <div className={`display ${isGrayed ? "grayed" : ""}`}>
       <h1 className="YourSalaryText">Your Salary</h1>
       <table className="info-table">
         <tbody>

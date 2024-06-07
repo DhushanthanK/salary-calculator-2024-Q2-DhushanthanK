@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { PopupProvider } from "./PopupContext";
-import UserInput from "./UserInput";
-import SalaryCalculator from "./SalaryCalculator";
+import { PopupProvider } from "./Components/PopupContext";
+import UserInput from "./Components/UserInput";
+import SalaryCalculator from "./Components/SalaryCalculator";
 
 const App: React.FC = () => {
   const [salary, setSalary] = useState(0);

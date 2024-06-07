@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
-import "./UserInput.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUndoAlt } from "@fortawesome/free-solid-svg-icons";
+import { NumericFormat } from "react-number-format";
+import "../styles/UserInput.css";
 
 interface Allowance {
   name: string;
@@ -41,9 +44,12 @@ const UserInput: React.FC<UserInputProps> = ({
   const [allowances, setAllowances] = useState<Allowance[]>([]);
   const [deductions, setDeductions] = useState<Deduction[]>([]);
 
-  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value);
-    setSalary(isNaN(value) ? 0 : value);
+  const handleSalaryChange = (values: {
+    value: string;
+    floatValue: number | undefined;
+  }) => {
+    const { floatValue } = values;
+    setSalary(floatValue ?? 0);
   };
 
   const handleAddAllowance = (newAllowance: Allowance) => {
@@ -65,13 +71,21 @@ const UserInput: React.FC<UserInputProps> = ({
 
   return (
     <div className="calculator">
-      <h1 className="CalculateYourSalaryText">Calculate your salary</h1>
+      <div className="salary-text-button">
+        <h1 className="CalculateYourSalaryText">Calculate your salary</h1>
+        <button className="reset-button" onClick={handleReset}>
+          <FontAwesomeIcon icon={faUndoAlt} /> Reset
+        </button>
+      </div>
       <div className="SalaryContainer">
         <h2 className="BasicSalaryText">Basic Salary</h2>
-        <input
+        <NumericFormat
           className="BasicSalaryUserInputBox"
-          value={salary || ""}
-          onChange={handleSalaryChange}
+          value={salary}
+          onValueChange={handleSalaryChange}
+          thousandSeparator={true}
+          decimalScale={2}
+          fixedDecimalScale={true}
           placeholder="Enter your basic salary"
         />
       </div>
@@ -141,10 +155,6 @@ const UserInput: React.FC<UserInputProps> = ({
           onAddDeduction={handleAddDeduction}
         />
       )}
-
-      <button className="reset-button" onClick={handleReset}>
-        Reset
-      </button>
     </div>
   );
 };

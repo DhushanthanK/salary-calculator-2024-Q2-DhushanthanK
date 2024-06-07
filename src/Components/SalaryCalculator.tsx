@@ -21,11 +21,13 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   const basicSalary = salary;
   const grossEarnings = basicSalary + totalEarnings + totalEarningsEPF_ETF;
   const grossDeductions = totalDeductions;
-  const employeeEPF = (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.08;
-  const employerEPF = (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.12;
-  const employerETF = (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.03;
+  const employeeEPF =
+    (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.08;
+  const employerEPF =
+    (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.12;
+  const employerETF =
+    (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.03;
 
- 
   let apit = 0;
   const taxPercentages = [
     { threshold: 100000, percentage: 0, constant: 0 },
@@ -40,14 +42,16 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   for (let i = 0; i < taxPercentages.length; i++) {
     const { threshold, percentage, constant } = taxPercentages[i];
     if (grossEarnings <= threshold) {
-      apit = ((basicSalary + totalEarningsEPF_ETF - totalDeductions) * percentage) / 100 - constant;
+      apit =
+        ((basicSalary + totalEarningsEPF_ETF - totalDeductions) * percentage) /
+          100 -
+        constant;
       break;
     }
   }
 
   const netSalary = grossEarnings - grossDeductions - employeeEPF - apit;
   const ctc = grossEarnings - grossDeductions + employerEPF + employerETF;
-
 
   return (
     <Display
@@ -59,7 +63,8 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
       employerEPF={employerEPF}
       employerETF={employerETF}
       apit={apit}
-      ctc={ctc} isGrayed={false}      
+      ctc={ctc}
+      isGrayed={false}
     />
   );
 };

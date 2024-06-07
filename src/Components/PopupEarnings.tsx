@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Popup.css";
+import "../styles/Popup.css";
 
 interface PopupEarningsProps {
   totalEarnings: number;
@@ -7,7 +7,11 @@ interface PopupEarningsProps {
   totalEarningsForEPF: number;
   setTotalEarningsForEPF: (totalEarningsForEPF: number) => void;
   setShowEarningsPopup: (show: boolean) => void;
-  onAddAllowance: (allowance: { name: string; amount: number; epf: boolean }) => void;
+  onAddAllowance: (allowance: {
+    name: string;
+    amount: number;
+    epf: boolean;
+  }) => void;
 }
 const PopupEarnings: React.FC<PopupEarningsProps> = ({
   totalEarnings,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './Popup.css'
+import "../styles/Popup.css";
 
 interface Deduction {
   name: string;
@@ -33,7 +33,7 @@ const PopupDeductions: React.FC<PopupDeductionsProps> = ({
       onAddDeduction(newDeduction);
       setDeductionName("");
       setDeductionAmount("");
-      setShowDeductionsPopup(false); // Close the popup after adding deduction
+      setShowDeductionsPopup(false);
     } else {
       alert("Please enter valid deduction details.");
     }
