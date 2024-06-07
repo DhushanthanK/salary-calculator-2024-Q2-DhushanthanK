@@ -1,4 +1,3 @@
-// PopupDeductions.tsx
 import React, { useState } from "react";
 import './Popup.css'
 
@@ -34,44 +33,47 @@ const PopupDeductions: React.FC<PopupDeductionsProps> = ({
       onAddDeduction(newDeduction);
       setDeductionName("");
       setDeductionAmount("");
+      setShowDeductionsPopup(false); // Close the popup after adding deduction
     } else {
       alert("Please enter valid deduction details.");
     }
   };
 
   return (
-    <div className="popup">
-      <h2>Add New Deduction</h2>
-      <label htmlFor="deductionName">Deduction Name</label>
-      <br />
-      <input
-        type="text"
-        id="deductionName"
-        value={deductionName}
-        onChange={(e) => setDeductionName(e.target.value)}
-        placeholder="Eg: Tax"
-      />
-      <br />
-      <label htmlFor="deductionAmount">Deduction Amount</label>
-      <br />
-      <input
-        type="number"
-        id="deductionAmount"
-        value={deductionAmount}
-        onChange={(e) => setDeductionAmount(e.target.value)}
-        placeholder="Eg: 10000"
-      />
-      <button onClick={handleAddDeduction}>Add</button>
-      <button onClick={() => setShowDeductionsPopup(false)}>Close</button>
+    <div className="popup-overlay">
+      <div className="popup">
+        <h2>Add New Deduction</h2>
+        <label htmlFor="deductionName">Deduction Name</label>
+        <br />
+        <input
+          type="text"
+          id="deductionName"
+          value={deductionName}
+          onChange={(e) => setDeductionName(e.target.value)}
+          placeholder="Eg: Tax"
+        />
+        <br />
+        <label htmlFor="deductionAmount">Deduction Amount</label>
+        <br />
+        <input
+          type="number"
+          id="deductionAmount"
+          value={deductionAmount}
+          onChange={(e) => setDeductionAmount(e.target.value)}
+          placeholder="Eg: 10000"
+        />
+        <button onClick={handleAddDeduction}>Add</button>
+        <button onClick={() => setShowDeductionsPopup(false)}>Close</button>
 
-      <h3>Added Deductions</h3>
-      <ul>
-        {deductions.map((deduction, index) => (
-          <li key={index}>
-            {deduction.name}: {deduction.amount}
-          </li>
-        ))}
-      </ul>
+        
+        <ul>
+          {deductions.map((deduction, index) => (
+            <li key={index}>
+              {deduction.name}: {deduction.amount}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

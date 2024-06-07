@@ -1,4 +1,3 @@
-// UserInput.tsx
 import React, { useState } from "react";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
@@ -54,29 +53,38 @@ const UserInput: React.FC<UserInputProps> = ({
     setDeductions([...deductions, newDeduction]);
   };
 
+  const handleReset = () => {
+    setSalary(0);
+    setTotalEarnings(0);
+    setTotalEarningsForEPF(0);
+    setTotalDeductions(0);
+    setAllowances([]);
+    setDeductions([]);
+  };
+
   return (
     <div className="calculator">
-      <h1>Calculate your salary</h1>
-      <div className="input-box">
-        <h2>Basic Salary</h2>
+      <h1 className="CalculateYourSalaryText">Calculate your salary</h1>
+      <div className="SalaryContainer">
+        <h2 className="BasicSalaryText">Basic Salary</h2>
         <input
-          type="number"
+          className="BasicSalaryUserInputBox"
           value={salary || ""}
           onChange={handleSalaryChange}
           placeholder="Enter your basic salary"
         />
       </div>
 
-      <div className="container">
-        <h2>Earnings</h2>
-        <p>Allowances, fixed allowances, bonuses, etc.</p>
-        <button onClick={() => setShowEarningsPopup(true)}> + Add New Allowance</button>
+      <div className="EarningsContainer">
+        <h2 className="Earnings">Earnings</h2>
+        <p className="AllowanceText">Allowances, fixed allowances, bonuses, etc.</p>
+        <button className = "AddNewAllowanceButton" onClick={() => setShowEarningsPopup(true)}> + Add New Allowance</button>
       </div>
 
-      <div className="container">
-        <h2>Deductions</h2>
-        <p>Salary Advances, Loan Deductions, etc.</p>
-        <button onClick={() => setShowDeductionsPopup(true)}> + Add New Deduction</button>
+      <div className="DeductionContainer">
+        <h2 className="DeductionsText">Deductions</h2>
+        <p className="SalaryAdvancesText">Salary Advances, Loan Deductions, etc.</p>
+        <button className = "AddNewDeductionButton" onClick={() => setShowDeductionsPopup(true)}> + Add New Deduction</button>
       </div>
 
       {showEarningsPopup && (
@@ -99,7 +107,6 @@ const UserInput: React.FC<UserInputProps> = ({
       )}
 
       <div>
-        <h3>Added Allowances</h3>
         <ul>
           {allowances.map((allowance, index) => (
             <li key={index}>
@@ -110,7 +117,6 @@ const UserInput: React.FC<UserInputProps> = ({
         </ul>
       </div>
       <div>
-        <h3>Added Deductions</h3>
         <ul>
           {deductions.map((deduction, index) => (
             <li key={index}>
@@ -119,6 +125,8 @@ const UserInput: React.FC<UserInputProps> = ({
           ))}
         </ul>
       </div>
+
+      <button className="reset-button" onClick={handleReset}>Reset</button>
     </div>
   );
 };

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import Display from "./Display";
 
-// Define the SalaryCalculatorProps interface
 interface SalaryCalculatorProps {
   salary: number;
   setSalary: (salary: number) => void;
@@ -15,13 +14,9 @@ interface SalaryCalculatorProps {
 
 const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   salary,
-  setSalary,
   totalEarnings,
-  setTotalEarnings,
   totalEarningsEPF_ETF,
-  setTotalEarningsForEPF,
   totalDeductions,
-  setTotalDeductions,
 }) => {
   const basicSalary = salary;
   const grossEarnings = basicSalary + totalEarnings + totalEarningsEPF_ETF;
@@ -30,7 +25,7 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   const employerEPF = (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.12;
   const employerETF = (basicSalary + totalEarningsEPF_ETF - totalDeductions) * 0.03;
 
-  // Calculate Advance Personal Income Tax (APIT) based on gross earnings
+ 
   let apit = 0;
   const taxPercentages = [
     { threshold: 100000, percentage: 0, constant: 0 },
@@ -53,12 +48,6 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   const netSalary = grossEarnings - grossDeductions - employeeEPF - apit;
   const ctc = grossEarnings - grossDeductions + employerEPF + employerETF;
 
-  const handleReset = () => {
-    setSalary(0);
-    setTotalEarnings(0);
-    setTotalEarningsForEPF(0);
-    setTotalDeductions(0);
-  };
 
   return (
     <Display
@@ -70,8 +59,8 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
       employerEPF={employerEPF}
       employerETF={employerETF}
       apit={apit}
-      ctc={ctc} // Pass ctc to Display component
-      onReset={handleReset}
+      ctc={ctc}
+      
     />
   );
 };

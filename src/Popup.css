@@ -1,61 +1,19 @@
-.popup {
-  width: 540px;
-  height: 384px;
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  position: absolute;
-  top: 50%; /* Center the popup vertically */
-  left: 50%; /* Center the popup horizontally */
-  transform: translate(-50%, -50%);
-}
-
-.popup h2 {
-  margin-top: 0;
-}
-
-.popup label {
-  margin-top: 10px;
-  display: block;
-}
-
-.popup input[type="text"],
-.popup input[type="number"],
-.popup input[type="checkbox"] {
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 5px;
-  margin-top: 5px;
-  box-sizing: border-box;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; 
 }
 
-.popup button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.popup button:last-child {
-  margin-left: 10px;
-  background-color: #dc3545;
-}
-
-.popup ul {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-
-.popup li {
-  margin-bottom: 5px;
-}
-
-@media (max-width: 768px) {
-  .popup {
-    width: 90%; /* Adjust width for smaller screens */
-    max-width: 90%;
-  }
+.popup {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

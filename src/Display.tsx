@@ -1,5 +1,5 @@
 import React from "react";
-import './Display.css'
+import "./Display.css";
 
 interface DisplayProps {
   salary: number;
@@ -9,9 +9,8 @@ interface DisplayProps {
   employeeEPF: number;
   employerEPF: number;
   employerETF: number;
-  apit: number; // Add apit property
-  ctc: number; // Add ctc property
-  onReset: () => void;
+  apit: number;
+  ctc: number;
 }
 
 const Display: React.FC<DisplayProps> = ({
@@ -24,21 +23,54 @@ const Display: React.FC<DisplayProps> = ({
   employerETF,
   apit,
   ctc,
-  onReset,
 }) => {
   return (
     <div className="display">
-      <h1>Salary Details</h1>
-      <p>Basic Salary: {salary.toFixed(2)}</p>
-      <p>Gross Earnings: {grossEarnings.toFixed(2)}</p>
-      <p>Gross Deductions: {grossDeductions.toFixed(2)}</p>
-      <p>APIT: {apit.toFixed(2)}</p>
-      <p>Net Salary: {netSalary.toFixed(2)}</p>
-      <p>Employee EPF: {employeeEPF.toFixed(2)}</p>
-      <p>Employer EPF: {employerEPF.toFixed(2)}</p>
-      <p>Employer ETF: {employerETF.toFixed(2)}</p>
-      <p>Cost to Company (CTC): {ctc.toFixed(2)}</p>
-      <button onClick={onReset}>Reset</button>
+      <h1 className="YourSalaryText">Your Salary</h1>
+      <table className="info-table">
+        <tbody>
+          <tr>
+            <td>Item</td>
+            <td>Amount</td>
+          </tr>
+          <tr>
+            <td>Basic Salary</td>
+            <td>{salary.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Gross Earnings</td>
+            <td>{grossEarnings.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Gross Deductions</td>
+            <td>{grossDeductions.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>APIT</td>
+            <td>{apit.toFixed(2)}</td>
+          </tr>
+          <tr className="bold-row">
+            <td>Net Salary</td>
+            <td>{netSalary.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Employee EPF</td>
+            <td>{employeeEPF.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Employer EPF</td>
+            <td>{employerEPF.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Employer ETF</td>
+            <td>{employerETF.toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td>Cost to Company (CTC)</td>
+            <td>{ctc.toFixed(2)}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 };

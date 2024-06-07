@@ -1,6 +1,5 @@
-// PopupEarnings.tsx
 import React, { useState } from "react";
-import './Popup.css'
+import "./Popup.css";
 
 interface PopupEarningsProps {
   totalEarnings: number;
@@ -10,7 +9,6 @@ interface PopupEarningsProps {
   setShowEarningsPopup: (show: boolean) => void;
   onAddAllowance: (allowance: { name: string; amount: number; epf: boolean }) => void;
 }
-
 const PopupEarnings: React.FC<PopupEarningsProps> = ({
   totalEarnings,
   setTotalEarnings,
@@ -42,43 +40,46 @@ const PopupEarnings: React.FC<PopupEarningsProps> = ({
       setAllowanceName("");
       setAllowanceAmount("");
       setIncludeEPF(false);
+      setShowEarningsPopup(false);
     } else {
       alert("Please enter valid allowance details.");
     }
   };
 
   return (
-    <div className="popup">
-      <h2>Add New Allowance</h2>
-      <label htmlFor="allowanceName">Earnings Name</label>
-      <br></br>
-      <input
-        type="text"
-        id="allowanceName"
-        value={allowanceName}
-        onChange={(e) => setAllowanceName(e.target.value)}
-        placeholder="Eg: Travel"
-      />
-      <br></br>
-      <label htmlFor="allowanceAmount">Earnings Amount</label>
-      <br></br>
-      <input
-        type="number"
-        id="allowanceAmount"
-        value={allowanceAmount}
-        onChange={(e) => setAllowanceAmount(e.target.value)}
-        placeholder="Eg: 10000"
-      />
-      <label>
+    <div className="popup-overlay">
+      <div className="popup">
+        <h2>Add New Allowance</h2>
+        <label htmlFor="allowanceName">Earnings Name</label>
+        <br />
         <input
-          type="checkbox"
-          checked={includeEPF}
-          onChange={(e) => setIncludeEPF(e.target.checked)}
+          type="text"
+          id="allowanceName"
+          value={allowanceName}
+          onChange={(e) => setAllowanceName(e.target.value)}
+          placeholder="Eg: Travel"
         />
-        EPF/ETF
-      </label>
-      <button onClick={handleAddAllowance}>Add</button>
-      <button onClick={() => setShowEarningsPopup(false)}>Close</button>
+        <br />
+        <label htmlFor="allowanceAmount">Earnings Amount</label>
+        <br />
+        <input
+          type="number"
+          id="allowanceAmount"
+          value={allowanceAmount}
+          onChange={(e) => setAllowanceAmount(e.target.value)}
+          placeholder="Eg: 10000"
+        />
+        <label>
+          <input
+            type="checkbox"
+            checked={includeEPF}
+            onChange={(e) => setIncludeEPF(e.target.checked)}
+          />
+          EPF/ETF
+        </label>
+        <button onClick={handleAddAllowance}>Add</button>
+        <button onClick={() => setShowEarningsPopup(false)}>Close</button>
+      </div>
     </div>
   );
 };
