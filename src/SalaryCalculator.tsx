@@ -45,12 +45,13 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
   for (let i = 0; i < taxPercentages.length; i++) {
     const { threshold, percentage, constant } = taxPercentages[i];
     if (grossEarnings <= threshold) {
-      apit = (grossEarnings * percentage) / 100 - constant;
+      apit = ((basicSalary + totalEarningsEPF_ETF - totalDeductions) * percentage) / 100 - constant;
       break;
     }
   }
 
   const netSalary = grossEarnings - grossDeductions - employeeEPF - apit;
+  const ctc = grossEarnings - grossDeductions + employerEPF + employerETF;
 
   const handleReset = () => {
     setSalary(0);
@@ -69,6 +70,7 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
       employerEPF={employerEPF}
       employerETF={employerETF}
       apit={apit}
+      ctc={ctc} // Pass ctc to Display component
       onReset={handleReset}
     />
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
+import './UserInput.css'
 
 interface UserInputProps {
   salary: number;
@@ -47,13 +48,13 @@ const UserInput: React.FC<UserInputProps> = ({
       <div className="container">
         <h2>Earnings</h2>
         <p>Allowances, fixed allowances, bonuses, etc.</p>
-        <button onClick={() => setShowEarningsPopup(true)}>Add New Allowance</button>
+        <button onClick={() => setShowEarningsPopup(true)}> + Add New Allowance</button>
       </div>
 
       <div className="container">
         <h2>Deductions</h2>
         <p>Salary Advances, Loan Deductions, etc.</p>
-        <button onClick={() => setShowDeductionsPopup(true)}>Add New Deduction</button>
+        <button onClick={() => setShowDeductionsPopup(true)}> + Add New Deduction</button>
       </div>
 
       {showEarningsPopup && (

@@ -1,0 +1,25 @@
+.calculator {
+  width: 680px;
+  height: 616px;
+  position: absolute;
+  top: 142px;
+  left: 128px;
+  gap: 0px;
+  opacity: 0px;
+  /* Add additional styling here */
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+.input-box {
+  /* Add styles for the input box */
+}
+
+.container {
+  /* Add styles for the container */
+}
+
+.popup {
+  /* Add styles for the popup */
+}

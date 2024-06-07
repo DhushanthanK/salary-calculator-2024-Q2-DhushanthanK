@@ -1,4 +1,5 @@
 import React from "react";
+import './Display.css'
 
 interface DisplayProps {
   salary: number;
@@ -9,6 +10,7 @@ interface DisplayProps {
   employerEPF: number;
   employerETF: number;
   apit: number; // Add apit property
+  ctc: number; // Add ctc property
   onReset: () => void;
 }
 
@@ -21,6 +23,7 @@ const Display: React.FC<DisplayProps> = ({
   employerEPF,
   employerETF,
   apit,
+  ctc,
   onReset,
 }) => {
   return (
@@ -29,11 +32,12 @@ const Display: React.FC<DisplayProps> = ({
       <p>Basic Salary: {salary.toFixed(2)}</p>
       <p>Gross Earnings: {grossEarnings.toFixed(2)}</p>
       <p>Gross Deductions: {grossDeductions.toFixed(2)}</p>
+      <p>APIT: {apit.toFixed(2)}</p>
       <p>Net Salary: {netSalary.toFixed(2)}</p>
       <p>Employee EPF: {employeeEPF.toFixed(2)}</p>
       <p>Employer EPF: {employerEPF.toFixed(2)}</p>
       <p>Employer ETF: {employerETF.toFixed(2)}</p>
-      <p>Advance Personal Income Tax (APIT): {apit.toFixed(2)}</p>
+      <p>Cost to Company (CTC): {ctc.toFixed(2)}</p>
       <button onClick={onReset}>Reset</button>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './Popup.css'
 
 interface PopupDeductionsProps {
   totalDeductions: number;

@@ -1,0 +1,15 @@
+.display {
+    width: 480px;
+    height: 614px;
+    position: absolute;
+    top: 142px;
+    left: 832px;
+    gap: 0px;
+    opacity: 0px;
+    /* Add additional styling here */
+    @media (max-width: 768px) {
+        padding: 0;
+      }
+
+  }
+  
