@@ -36,7 +36,8 @@ const UserInput: React.FC<UserInputProps> = ({
   setTotalDeductions,
 }) => {
   const [showEarningsPopup, setShowEarningsPopup] = useState<boolean>(false);
-  const [showDeductionsPopup, setShowDeductionsPopup] = useState<boolean>(false);
+  const [showDeductionsPopup, setShowDeductionsPopup] =
+    useState<boolean>(false);
   const [allowances, setAllowances] = useState<Allowance[]>([]);
   const [deductions, setDeductions] = useState<Deduction[]>([]);
 
@@ -77,14 +78,49 @@ const UserInput: React.FC<UserInputProps> = ({
 
       <div className="EarningsContainer">
         <h2 className="Earnings">Earnings</h2>
-        <p className="AllowanceText">Allowances, fixed allowances, bonuses, etc.</p>
-        <button className = "AddNewAllowanceButton" onClick={() => setShowEarningsPopup(true)}> + Add New Allowance</button>
+        <p className="AllowanceText">
+          Allowances, fixed allowances, bonuses, etc.
+        </p>
+        <button
+          className="AddNewAllowanceButton"
+          onClick={() => setShowEarningsPopup(true)}
+        >
+          {" "}
+          + Add New Allowance
+        </button>
+        <div>
+          <ul>
+            {allowances.map((allowance, index) => (
+              <li key={index}>
+                {allowance.name}: {allowance.amount}{" "}
+                {allowance.epf && "(Included in EPF/ETF)"}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="DeductionContainer">
         <h2 className="DeductionsText">Deductions</h2>
-        <p className="SalaryAdvancesText">Salary Advances, Loan Deductions, etc.</p>
-        <button className = "AddNewDeductionButton" onClick={() => setShowDeductionsPopup(true)}> + Add New Deduction</button>
+        <p className="SalaryAdvancesText">
+          Salary Advances, Loan Deductions, etc.
+        </p>
+        <button
+          className="AddNewAllowanceButton"
+          onClick={() => setShowDeductionsPopup(true)}
+        >
+          {" "}
+          + Add New Deduction
+        </button>
+        <div>
+          <ul>
+            {deductions.map((deduction, index) => (
+              <li key={index}>
+                {deduction.name}: {deduction.amount}{" "}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       {showEarningsPopup && (
@@ -106,27 +142,9 @@ const UserInput: React.FC<UserInputProps> = ({
         />
       )}
 
-      <div>
-        <ul>
-          {allowances.map((allowance, index) => (
-            <li key={index}>
-              {allowance.name}: {allowance.amount}{" "}
-              {allowance.epf && "(Included in EPF/ETF)"}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <ul>
-          {deductions.map((deduction, index) => (
-            <li key={index}>
-              {deduction.name}: {deduction.amount}{" "}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <button className="reset-button" onClick={handleReset}>Reset</button>
+      <button className="reset-button" onClick={handleReset}>
+        Reset
+      </button>
     </div>
   );
 };

@@ -11,6 +11,7 @@ interface DisplayProps {
   employerETF: number;
   apit: number;
   ctc: number;
+  isGrayed: boolean;
 }
 
 const Display: React.FC<DisplayProps> = ({
@@ -23,9 +24,10 @@ const Display: React.FC<DisplayProps> = ({
   employerETF,
   apit,
   ctc,
+  isGrayed,
 }) => {
   return (
-    <div className="display">
+    <div className={`display ${isGrayed ? 'grayed' : ''}`}>
       <h1 className="YourSalaryText">Your Salary</h1>
       <table className="info-table">
         <tbody>

@@ -59,8 +59,7 @@ const SalaryCalculator: React.FC<SalaryCalculatorProps> = ({
       employerEPF={employerEPF}
       employerETF={employerETF}
       apit={apit}
-      ctc={ctc}
-      
+      ctc={ctc} isGrayed={false}      
     />
   );
 };

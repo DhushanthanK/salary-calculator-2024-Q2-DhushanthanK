@@ -64,15 +64,6 @@ const PopupDeductions: React.FC<PopupDeductionsProps> = ({
         />
         <button onClick={handleAddDeduction}>Add</button>
         <button onClick={() => setShowDeductionsPopup(false)}>Close</button>
-
-        
-        <ul>
-          {deductions.map((deduction, index) => (
-            <li key={index}>
-              {deduction.name}: {deduction.amount}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
