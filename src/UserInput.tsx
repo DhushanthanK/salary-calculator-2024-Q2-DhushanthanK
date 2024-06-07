@@ -1,5 +1,4 @@
-import React from "react";
-import { usePopupContext } from "./PopupContext";
+import React, { useState } from "react";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
 
@@ -24,18 +23,23 @@ const UserInput: React.FC<UserInputProps> = ({
   totalDeductions,
   setTotalDeductions,
 }) => {
-  const { setShowEarningsPopup, setShowDeductionsPopup } = usePopupContext();
+  const [showEarningsPopup, setShowEarningsPopup] = useState<boolean>(false);
+  const [showDeductionsPopup, setShowDeductionsPopup] = useState<boolean>(false);
+
+  const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseFloat(e.target.value);
+    setSalary(isNaN(value) ? 0 : value);
+  };
 
   return (
     <div className="calculator">
       <h1>Calculate your salary</h1>
-
       <div className="input-box">
         <h2>Basic Salary</h2>
         <input
           type="number"
-          value={salary}
-          onChange={(e) => setSalary(parseFloat(e.target.value))}
+          value={salary || ""}
+          onChange={handleSalaryChange}
           placeholder="Enter your basic salary"
         />
       </div>
@@ -52,14 +56,22 @@ const UserInput: React.FC<UserInputProps> = ({
         <button onClick={() => setShowDeductionsPopup(true)}>Add New Deduction</button>
       </div>
 
-      <PopupEarnings
-        totalEarnings={totalEarnings}
-        setTotalEarnings={setTotalEarnings}
-      />
-      <PopupDeductions
-        totalDeductions={totalDeductions}
-        setTotalDeductions={setTotalDeductions}
-      />
+      {showEarningsPopup && (
+        <PopupEarnings
+          totalEarnings={totalEarnings}
+          setTotalEarnings={setTotalEarnings}
+          totalEarningsForEPF={totalEarningsForEPF}
+          setTotalEarningsForEPF={setTotalEarningsForEPF}
+          setShowEarningsPopup={setShowEarningsPopup}
+        />
+      )}
+      {showDeductionsPopup && (
+        <PopupDeductions
+          totalDeductions={totalDeductions}
+          setTotalDeductions={setTotalDeductions}
+          setShowDeductionsPopup={setShowDeductionsPopup}
+        />
+      )}
     </div>
   );
 };
