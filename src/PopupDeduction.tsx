@@ -1,20 +1,28 @@
+// PopupDeductions.tsx
 import React, { useState } from "react";
 import './Popup.css'
+
+interface Deduction {
+  name: string;
+  amount: number;
+}
 
 interface PopupDeductionsProps {
   totalDeductions: number;
   setTotalDeductions: (totalDeductions: number) => void;
   setShowDeductionsPopup: (show: boolean) => void;
+  onAddDeduction: (deduction: Deduction) => void;
 }
 
 const PopupDeductions: React.FC<PopupDeductionsProps> = ({
   totalDeductions,
   setTotalDeductions,
   setShowDeductionsPopup,
+  onAddDeduction,
 }) => {
   const [deductionName, setDeductionName] = useState<string>("");
   const [deductionAmount, setDeductionAmount] = useState<string>("");
-  const [deductions, setDeductions] = useState<{ name: string; amount: number }[]>([]);
+  const [deductions, setDeductions] = useState<Deduction[]>([]);
 
   const handleAddDeduction = () => {
     const parsedAmount = parseFloat(deductionAmount);
@@ -23,6 +31,7 @@ const PopupDeductions: React.FC<PopupDeductionsProps> = ({
 
       setTotalDeductions(totalDeductions + parsedAmount);
       setDeductions([...deductions, newDeduction]);
+      onAddDeduction(newDeduction);
       setDeductionName("");
       setDeductionAmount("");
     } else {

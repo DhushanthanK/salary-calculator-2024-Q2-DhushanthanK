@@ -1,3 +1,4 @@
+// PopupEarnings.tsx
 import React, { useState } from "react";
 import './Popup.css'
 
@@ -7,6 +8,7 @@ interface PopupEarningsProps {
   totalEarningsForEPF: number;
   setTotalEarningsForEPF: (totalEarningsForEPF: number) => void;
   setShowEarningsPopup: (show: boolean) => void;
+  onAddAllowance: (allowance: { name: string; amount: number; epf: boolean }) => void;
 }
 
 const PopupEarnings: React.FC<PopupEarningsProps> = ({
@@ -15,13 +17,11 @@ const PopupEarnings: React.FC<PopupEarningsProps> = ({
   totalEarningsForEPF,
   setTotalEarningsForEPF,
   setShowEarningsPopup,
+  onAddAllowance,
 }) => {
   const [allowanceName, setAllowanceName] = useState<string>("");
   const [allowanceAmount, setAllowanceAmount] = useState<string>("");
   const [includeEPF, setIncludeEPF] = useState<boolean>(false);
-  const [allowances, setAllowances] = useState<
-    { name: string; amount: number; epf: boolean }[]
-  >([]);
 
   const handleAddAllowance = () => {
     const parsedAmount = parseFloat(allowanceAmount);
@@ -38,7 +38,7 @@ const PopupEarnings: React.FC<PopupEarningsProps> = ({
         setTotalEarnings(totalEarnings + parsedAmount);
       }
 
-      setAllowances([...allowances, newAllowance]);
+      onAddAllowance(newAllowance);
       setAllowanceName("");
       setAllowanceAmount("");
       setIncludeEPF(false);
@@ -79,16 +79,6 @@ const PopupEarnings: React.FC<PopupEarningsProps> = ({
       </label>
       <button onClick={handleAddAllowance}>Add</button>
       <button onClick={() => setShowEarningsPopup(false)}>Close</button>
-
-      <h3>Added Allowances</h3>
-      <ul>
-        {allowances.map((allowance, index) => (
-          <li key={index}>
-            {allowance.name}: {allowance.amount}{" "}
-            {allowance.epf && "(Included in EPF/ETF)"}
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

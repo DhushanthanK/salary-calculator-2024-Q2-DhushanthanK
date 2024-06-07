@@ -1,7 +1,19 @@
+// UserInput.tsx
 import React, { useState } from "react";
 import PopupEarnings from "./PopupEarnings";
 import PopupDeductions from "./PopupDeduction";
-import './UserInput.css'
+import "./UserInput.css";
+
+interface Allowance {
+  name: string;
+  amount: number;
+  epf: boolean;
+}
+
+interface Deduction {
+  name: string;
+  amount: number;
+}
 
 interface UserInputProps {
   salary: number;
@@ -26,10 +38,20 @@ const UserInput: React.FC<UserInputProps> = ({
 }) => {
   const [showEarningsPopup, setShowEarningsPopup] = useState<boolean>(false);
   const [showDeductionsPopup, setShowDeductionsPopup] = useState<boolean>(false);
+  const [allowances, setAllowances] = useState<Allowance[]>([]);
+  const [deductions, setDeductions] = useState<Deduction[]>([]);
 
   const handleSalaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseFloat(e.target.value);
     setSalary(isNaN(value) ? 0 : value);
+  };
+
+  const handleAddAllowance = (newAllowance: Allowance) => {
+    setAllowances([...allowances, newAllowance]);
+  };
+
+  const handleAddDeduction = (newDeduction: Deduction) => {
+    setDeductions([...deductions, newDeduction]);
   };
 
   return (
@@ -64,6 +86,7 @@ const UserInput: React.FC<UserInputProps> = ({
           totalEarningsForEPF={totalEarningsForEPF}
           setTotalEarningsForEPF={setTotalEarningsForEPF}
           setShowEarningsPopup={setShowEarningsPopup}
+          onAddAllowance={handleAddAllowance}
         />
       )}
       {showDeductionsPopup && (
@@ -71,8 +94,31 @@ const UserInput: React.FC<UserInputProps> = ({
           totalDeductions={totalDeductions}
           setTotalDeductions={setTotalDeductions}
           setShowDeductionsPopup={setShowDeductionsPopup}
+          onAddDeduction={handleAddDeduction}
         />
       )}
+
+      <div>
+        <h3>Added Allowances</h3>
+        <ul>
+          {allowances.map((allowance, index) => (
+            <li key={index}>
+              {allowance.name}: {allowance.amount}{" "}
+              {allowance.epf && "(Included in EPF/ETF)"}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>Added Deductions</h3>
+        <ul>
+          {deductions.map((deduction, index) => (
+            <li key={index}>
+              {deduction.name}: {deduction.amount}{" "}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
