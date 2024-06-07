@@ -27,7 +27,7 @@ const App: React.FC = () => {
           setSalary={setSalary}
           totalEarnings={totalEarnings}
           setTotalEarnings={setTotalEarnings}
-          totalEarningsForEPF={totalEarningsForEPF}
+          totalEarningsEPF_ETF={totalEarningsForEPF}
           setTotalEarningsForEPF={setTotalEarningsForEPF}
           totalDeductions={totalDeductions}
           setTotalDeductions={setTotalDeductions}

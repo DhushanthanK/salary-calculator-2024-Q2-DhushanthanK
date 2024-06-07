@@ -8,6 +8,7 @@ interface DisplayProps {
   employeeEPF: number;
   employerEPF: number;
   employerETF: number;
+  apit: number; // Add apit property
   onReset: () => void;
 }
 
@@ -19,6 +20,7 @@ const Display: React.FC<DisplayProps> = ({
   employeeEPF,
   employerEPF,
   employerETF,
+  apit,
   onReset,
 }) => {
   return (
@@ -31,6 +33,7 @@ const Display: React.FC<DisplayProps> = ({
       <p>Employee EPF: {employeeEPF.toFixed(2)}</p>
       <p>Employer EPF: {employerEPF.toFixed(2)}</p>
       <p>Employer ETF: {employerETF.toFixed(2)}</p>
+      <p>Advance Personal Income Tax (APIT): {apit.toFixed(2)}</p>
       <button onClick={onReset}>Reset</button>
     </div>
   );
